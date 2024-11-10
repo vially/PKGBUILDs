@@ -1,0 +1,14 @@
+pkgbase = aic8800-radxa-sdio-dkms
+	pkgdesc = Kernel modules for Radxa AIC8800 SDIO
+	pkgver = 3.0+git20240327.3561b08f_2
+	pkgrel = 1
+	url = https://github.com/radxa-pkg/aic8800
+	arch = any
+	license = GPLv2
+	depends = aic8800-radxa-firmware
+	source = https://github.com/radxa-pkg/aic8800/releases/download/3.0%2Bgit20240327.3561b08f-2/aic8800-sdio-dkms_3.0+git20240327.3561b08f-2_all.deb
+	source = 0001-Fix-DKMS-config.patch
+	sha512sums = 5751271809f3dc015df881932e0ef486f0bb6d1ee5d93a7e87e7bb2a9cc9af38729a2c48c369a8a660c3f694019f7adc5eea2d3c8605a82b21c3f8b8062738a9
+	sha512sums = 67520b44be8155ebf7f33a2f770d6d72525fe8849d5af1cd0b62c0fac9240b0e50a5e5612ae02f41d32ebb97eae0cdddec107da4f1e65954fe4d8d78d7c337c3
+
+pkgname = aic8800-radxa-sdio-dkms

@@ -1,0 +1,42 @@
+# Maintainer: Valentin Hăloiu <vially.ichb@gmail.com>
+
+pkgname=aic8800-radxa-sdio-dkms
+pkgver='3.0+git20240327.3561b08f_2'
+_pkgver_url_encoded='3.0%2Bgit20240327.3561b08f-2'
+pkgrel=1
+
+pkgdesc='Kernel modules for Radxa AIC8800 SDIO'
+arch=('any')
+url='https://github.com/radxa-pkg/aic8800'
+depends=('aic8800-radxa-firmware')
+license=('GPLv2')
+
+source=(
+  "https://github.com/radxa-pkg/aic8800/releases/download/${_pkgver_url_encoded}/aic8800-sdio-dkms_${pkgver//_/-}_all.deb"
+  '0001-Fix-DKMS-config.patch'
+)
+sha512sums=('5751271809f3dc015df881932e0ef486f0bb6d1ee5d93a7e87e7bb2a9cc9af38729a2c48c369a8a660c3f694019f7adc5eea2d3c8605a82b21c3f8b8062738a9'
+            '67520b44be8155ebf7f33a2f770d6d72525fe8849d5af1cd0b62c0fac9240b0e50a5e5612ae02f41d32ebb97eae0cdddec107da4f1e65954fe4d8d78d7c337c3')
+
+prepare() {
+  cd "${srcdir}"
+  tar xvJf "data.tar.xz"
+
+  # `dkms` fails to build the package if it contains a dash in the *version*
+  # string. Not sure if this is a feature or a bug but, as a workaround, let's
+  # replace the dashes with underscores.
+  mv "usr/src/aic8800-sdio-${pkgver//_/-}" "usr/src/aic8800-sdio-${pkgver}"
+  cd "usr/src/aic8800-sdio-${pkgver}"
+  sed -i '/^PACKAGE_VERSION=/s/-/_/g' ./dkms.conf
+
+  patch -Np1 -i ../../../../0001-Fix-DKMS-config.patch -d .
+}
+
+package() {
+  # Copy source and dkms config
+  install -dm 755 "${pkgdir}/usr/src/"
+  cp -dr --no-preserve=ownership "${srcdir}/usr/src/aic8800-sdio-${pkgver}" "${pkgdir}/usr/src/aic8800-sdio-${pkgver}"
+
+  # Prune unwanted files
+  rm -fr "${pkgdir}/usr/src/aic8800-sdio-${pkgver}/SDIO/patch"
+}

@@ -1,0 +1,25 @@
+# Maintainer: Valentin Hăloiu <vially.ichb@gmail.com>
+
+pkgname=aic8800-radxa-firmware
+pkgver='3.0+git20240327.3561b08f_2'
+_pkgver_url_encoded='3.0%2Bgit20240327.3561b08f-2'
+pkgrel=1
+
+pkgdesc='Radxa AIC8800 firmware'
+arch=('any')
+url='https://github.com/radxa-pkg/aic8800'
+license=('GPLv2')
+
+source=("https://github.com/radxa-pkg/aic8800/releases/download/${_pkgver_url_encoded}/aic8800-firmware_${pkgver//_/-}_all.deb")
+sha512sums=('dd0b331f397398c23843515a7a9a0828e713ccc70b3ee417ff53f20474983334da96e8512f1735eae7adfc7a900de651ee8d9de8304d983d839ab21b4be519b4')
+
+prepare() {
+  cd "${srcdir}"
+  tar xvJf data.tar.xz
+}
+
+package() {
+  # Copy device firmware
+  install -dm 755 "${pkgdir}/usr/lib/firmware"
+  cp -dr --no-preserve=ownership "${srcdir}/lib/firmware"/* "${pkgdir}/usr/lib/firmware"
+}

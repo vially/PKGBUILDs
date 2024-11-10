@@ -1,0 +1,11 @@
+pkgbase = aic8800-radxa-firmware
+	pkgdesc = Radxa AIC8800 firmware
+	pkgver = 3.0+git20240327.3561b08f_2
+	pkgrel = 1
+	url = https://github.com/radxa-pkg/aic8800
+	arch = any
+	license = GPLv2
+	source = https://github.com/radxa-pkg/aic8800/releases/download/3.0%2Bgit20240327.3561b08f-2/aic8800-firmware_3.0+git20240327.3561b08f-2_all.deb
+	sha512sums = dd0b331f397398c23843515a7a9a0828e713ccc70b3ee417ff53f20474983334da96e8512f1735eae7adfc7a900de651ee8d9de8304d983d839ab21b4be519b4
+
+pkgname = aic8800-radxa-firmware
